@@ -1,9 +1,9 @@
 import { Cat } from "./interfaces";
 
-export class CatRepository {
-    getCats: () => Cat[]
-    getCatById: () => Cat
-    createCat: () => Cat
-    updateCatById: () => Cat
-    deleteCatById: () => Cat
+export abstract class CatRepository {
+    abstract getCats(): Cat[]
+    abstract getCatById(): Cat
+    abstract createCat(): Cat
+    abstract updateCatById(): Cat
+    abstract deleteCatById(): Cat
 }
