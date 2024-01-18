@@ -33,8 +33,8 @@ export class CatsService extends CatRepository {
         const index = this._getIndex(id)
         if (index === -1) return
         const oldCat = this.cats[index]
-        const updated = { ...oldCat, ...cat, id }
-        oldCat[index] = updated
+        const updated = { ...oldCat, ...cat }
+        this.cats[index] = updated
         return updated
     }
 
