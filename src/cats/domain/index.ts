@@ -1,11 +1,3 @@
-export class CreateCatDto {
-    name: string
-    age: number
-    breed: string
-}
-
-export class CatQuery {
-    limit?: number
-}
-
-export class UpdateCatDto implements Partial<CreateCatDto> { }
+export { CreateCatDto, UpdateCatDto, CatQuery } from "./dto";
+export { CatInterface } from './interfaces'
+export { CatRepository } from './repositories'
