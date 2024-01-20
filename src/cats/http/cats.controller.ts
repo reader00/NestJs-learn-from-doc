@@ -10,9 +10,9 @@ import { CacheInterceptor, ErrorInterceptor, LoggingInterceptor, TransformInterc
 // @UseFilters(HttpExceptionFilter)
 @Controller('cats')
 @UseInterceptors(LoggingInterceptor)
-@UseInterceptors(TransformInterceptor)
-@UseInterceptors(ErrorInterceptor)
-@UseInterceptors(CacheInterceptor)
+// @UseInterceptors(TransformInterceptor)
+// @UseInterceptors(ErrorInterceptor)
+// @UseInterceptors(CacheInterceptor)
 export class CatsController {
 
     constructor(private catService: CatRepository) { }
