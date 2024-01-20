@@ -7,6 +7,7 @@ import { Roles } from '../../common/decorators/roles.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CacheInterceptor, ErrorInterceptor, LoggingInterceptor, TimeoutInterceptor, TransformInterceptor } from '../../common/interceptors';
 import { resolve } from 'path';
+import { Payload } from '../../common/decorators';
 
 // @UseFilters(HttpExceptionFilter)
 @Controller('cats')
@@ -28,7 +29,7 @@ export class CatsController {
     }
 
     @Get()
-    async findAll(@Query() query: CatQuery) {
+    async findAll(@Query() query: CatQuery, @Payload(new ValidationPipe({ validateCustomDecorators: true, })) some: string) {
         return this.catService.getCats()
     }
 
