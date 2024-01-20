@@ -1,27 +1,34 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CatQuery, CatRepository, CreateCatDto, UpdateCatDto } from '../domain';
 import { HttpExceptionFilter } from '../../common/exceptions/exceptions';
 import { ZodValidationPipe } from '../../common/pipes';
 import { createCatSchema } from '../../common/schemas';
 import { Roles } from '../../common/decorators/roles.decorator';
-import { RolesGuard } from '../service/roles.guard';
+import { RolesGuard } from '../../common/guards/roles.guard';
+import { CacheInterceptor, ErrorInterceptor, LoggingInterceptor, TimeoutInterceptor, TransformInterceptor } from '../../common/interceptors';
+import { resolve } from 'path';
 
 // @UseFilters(HttpExceptionFilter)
 @Controller('cats')
+@UseInterceptors(LoggingInterceptor)
+@UseInterceptors(TimeoutInterceptor)
+// @UseInterceptors(TransformInterceptor)
+// @UseInterceptors(ErrorInterceptor)
+// @UseInterceptors(CacheInterceptor)
 export class CatsController {
 
     constructor(private catService: CatRepository) { }
 
     @Post()
     @Roles(['admin'])
-    @UseGuards(RolesGuard)
+    // @UseGuards(RolesGuard)
     // @UsePipes(new ZodValidationPipe(createCatSchema))
     create(@Body(ValidationPipe) createCatDto: CreateCatDto) {
         return this.catService.createCat(createCatDto)
     }
 
     @Get()
-    findAll(@Query() query: CatQuery) {
+    async findAll(@Query() query: CatQuery) {
         return this.catService.getCats()
     }
 

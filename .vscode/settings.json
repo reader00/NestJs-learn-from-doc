@@ -1,4 +1,10 @@
 {
     "material-icon-theme.activeIconPack": "nest",
+    "material-icon-theme.files.associations": {
+        "*.interceptor.ts": "../../icons/nest-interceptor"
+    },
+    "material-icon-theme.folders.associations": {
+        "interceptors": "Mjml"
+    },
     "prettier.endOfLine": "lf"
 }
