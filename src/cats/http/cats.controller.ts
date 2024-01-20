@@ -7,12 +7,10 @@ import { Roles } from '../../common/decorators/roles.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CacheInterceptor, ErrorInterceptor, LoggingInterceptor, TimeoutInterceptor, TransformInterceptor } from '../../common/interceptors';
 import { resolve } from 'path';
-import { Payload } from '../../common/decorators';
+import { Payload, PostCat } from '../../common/decorators';
 
 // @UseFilters(HttpExceptionFilter)
 @Controller('cats')
-@UseInterceptors(LoggingInterceptor)
-@UseInterceptors(TimeoutInterceptor)
 // @UseInterceptors(TransformInterceptor)
 // @UseInterceptors(ErrorInterceptor)
 // @UseInterceptors(CacheInterceptor)
@@ -21,15 +19,17 @@ export class CatsController {
     constructor(private catService: CatRepository) { }
 
     @Post()
-    @Roles(['admin'])
+    @PostCat('admin')
     // @UseGuards(RolesGuard)
     // @UsePipes(new ZodValidationPipe(createCatSchema))
-    create(@Body(ValidationPipe) createCatDto: CreateCatDto) {
+    async create(@Body(ValidationPipe) createCatDto: CreateCatDto) {
+        const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+        await delay(6000)
         return this.catService.createCat(createCatDto)
     }
 
     @Get()
-    async findAll(@Query() query: CatQuery, @Payload() some: string) {
+    async findAll(@Query() query: CatQuery, @Payload(new ValidationPipe({ validateCustomDecorators: true })) some: object) {
         return this.catService.getCats()
     }
 
