@@ -5,13 +5,14 @@ import { ZodValidationPipe } from '../../common/pipes';
 import { createCatSchema } from '../../common/schemas';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
-import { ErrorInterceptor, LoggingInterceptor, TransformInterceptor } from '../../common/interceptors';
+import { CacheInterceptor, ErrorInterceptor, LoggingInterceptor, TransformInterceptor } from '../../common/interceptors';
 
 // @UseFilters(HttpExceptionFilter)
 @Controller('cats')
 @UseInterceptors(LoggingInterceptor)
 @UseInterceptors(TransformInterceptor)
 @UseInterceptors(ErrorInterceptor)
+@UseInterceptors(CacheInterceptor)
 export class CatsController {
 
     constructor(private catService: CatRepository) { }
