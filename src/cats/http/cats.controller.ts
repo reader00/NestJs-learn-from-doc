@@ -1,18 +1,18 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CatQuery, CatRepository, CreateCatDto, UpdateCatDto } from '../domain';
 import { HttpExceptionFilter } from '../../common/exceptions/exceptions';
 import { ZodValidationPipe } from '../../common/pipes';
 import { createCatSchema } from '../../common/schema';
 
-@UseFilters(HttpExceptionFilter)
+// @UseFilters(HttpExceptionFilter)
 @Controller('cats')
 export class CatsController {
 
     constructor(private catService: CatRepository) { }
 
     @Post()
-    @UsePipes(new ZodValidationPipe(createCatSchema))
-    create(@Body() createCatDto: CreateCatDto) {
+    // @UsePipes(new ZodValidationPipe(createCatSchema))
+    create(@Body(ValidationPipe) createCatDto: CreateCatDto) {
         return this.catService.createCat(createCatDto)
     }
 
