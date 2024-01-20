@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, HttpException, Param, ParseIntPipe, Patch, Post, Query, UseFilters } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseFilters } from '@nestjs/common';
 import { CatQuery, CatRepository, CreateCatDto, UpdateCatDto } from '../domain';
-import { HttpExceptionFilter } from '../../common/exceptions';
+import { HttpExceptionFilter } from '../../common/exceptions/exceptions';
 
 @UseFilters(HttpExceptionFilter)
 @Controller('cats')
