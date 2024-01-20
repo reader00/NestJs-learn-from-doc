@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
-import { CatQuery, CreateCatDto, UpdateCatDto } from '../domain';
-import { CatsService } from '../service/cats.service';
+import { CatQuery, CatRepository, CreateCatDto, UpdateCatDto } from '../domain';
+// import { CatsService } from '../service/cats.service';
 
 @Controller('cats')
 export class CatsController {
 
-    constructor(private catService: CatsService) { }
+    constructor(private catService: CatRepository) { }
 
     @Post()
     create(@Body() createCatDto: CreateCatDto) {
