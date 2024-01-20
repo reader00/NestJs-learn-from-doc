@@ -1,2 +1,2 @@
 export * from './validation.pipe'
-export * from './schema'
+export * from './zod-validation.pipe'
