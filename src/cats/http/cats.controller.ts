@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseFilters } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseFilters } from '@nestjs/common';
 import { CatQuery, CatRepository, CreateCatDto, UpdateCatDto } from '../domain';
 import { HttpExceptionFilter } from '../../common/exceptions/exceptions';
 
@@ -19,17 +19,17 @@ export class CatsController {
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
+    findOne(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number) {
         return this.catService.getCatById(id)
     }
 
     @Patch(':id')
-    update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateCatDto) {
+    update(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number, @Body() body: UpdateCatDto) {
         return this.catService.updateCatById(id, body)
     }
 
     @Delete(":id")
-    delete(@Param('id', ParseIntPipe) id: number) {
+    delete(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number) {
         return this.catService.deleteCatById(id)
     }
 }
