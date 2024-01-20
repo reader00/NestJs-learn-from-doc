@@ -5,11 +5,13 @@ import { ZodValidationPipe } from '../../common/pipes';
 import { createCatSchema } from '../../common/schemas';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
-import { CacheInterceptor, ErrorInterceptor, LoggingInterceptor, TransformInterceptor } from '../../common/interceptors';
+import { CacheInterceptor, ErrorInterceptor, LoggingInterceptor, TimeoutInterceptor, TransformInterceptor } from '../../common/interceptors';
+import { resolve } from 'path';
 
 // @UseFilters(HttpExceptionFilter)
 @Controller('cats')
 @UseInterceptors(LoggingInterceptor)
+@UseInterceptors(TimeoutInterceptor)
 // @UseInterceptors(TransformInterceptor)
 // @UseInterceptors(ErrorInterceptor)
 // @UseInterceptors(CacheInterceptor)
@@ -26,7 +28,11 @@ export class CatsController {
     }
 
     @Get()
-    findAll(@Query() query: CatQuery) {
+    async findAll(@Query() query: CatQuery) {
+        const delay = (ms: number) => new Promise(resolve => {
+            setTimeout(resolve, ms)
+        })
+        await delay(4000)
         return this.catService.getCats()
     }
 
