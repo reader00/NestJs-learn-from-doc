@@ -4,7 +4,7 @@ import { HttpExceptionFilter } from '../../common/exceptions/exceptions';
 import { ZodValidationPipe } from '../../common/pipes';
 import { createCatSchema } from '../../common/schemas';
 import { Roles } from '../../common/decorators/roles.decorator';
-import { RolesGuard } from '../service/roles.guard';
+import { RolesGuard } from '../../common/guards/roles.guard';
 
 // @UseFilters(HttpExceptionFilter)
 @Controller('cats')
