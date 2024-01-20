@@ -29,10 +29,6 @@ export class CatsController {
 
     @Get()
     async findAll(@Query() query: CatQuery) {
-        const delay = (ms: number) => new Promise(resolve => {
-            setTimeout(resolve, ms)
-        })
-        await delay(4000)
         return this.catService.getCats()
     }
 
