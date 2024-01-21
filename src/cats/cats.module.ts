@@ -3,8 +3,10 @@ import { CatsService } from './service/cats.service';
 import { CatsController } from './http/cats.controller';
 import { CatRepository } from './domain';
 import { LoggerMiddleware } from '../common/middlewares';
+import { ConfigModule } from '../config/config.module';
 
 @Module({
+  imports: [ConfigModule.register({ folder: '../config' })],
   providers: [
     {
       provide: CatRepository,

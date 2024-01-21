@@ -8,6 +8,7 @@ import { RolesGuard } from '../../common/guards/roles.guard';
 import { CacheInterceptor, ErrorInterceptor, LoggingInterceptor, TimeoutInterceptor, TransformInterceptor } from '../../common/interceptors';
 import { resolve } from 'path';
 import { Payload } from '../../common/decorators';
+import { ConfigService } from '../../config/services/config.service';
 
 // @UseFilters(HttpExceptionFilter)
 @Controller('cats')
@@ -18,13 +19,14 @@ import { Payload } from '../../common/decorators';
 // @UseInterceptors(CacheInterceptor)
 export class CatsController {
 
-    constructor(private catService: CatRepository) { }
+    constructor(private catService: CatRepository, private readonly config: ConfigService) { }
 
     @Post()
     @Roles(['admin'])
     // @UseGuards(RolesGuard)
     // @UsePipes(new ZodValidationPipe(createCatSchema))
     create(@Body(ValidationPipe) createCatDto: CreateCatDto) {
+        console.log(this.config.get('stage'));
         return this.catService.createCat(createCatDto)
     }
 
