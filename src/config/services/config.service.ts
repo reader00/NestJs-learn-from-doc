@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { EnvConfig } from '../dto/env-config.dto';
+import { EnvConfig } from '../domain/env-config.dto';
 import path from 'path';
 import dotenv from 'dotenv'
 import fs from 'fs'
