@@ -1,5 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigService } from './services/config.service';
+import { CONFIG_OPTIONS } from '../common/constants';
 
 @Module({})
 export class ConfigModule {
@@ -9,7 +10,7 @@ export class ConfigModule {
             module: ConfigModule,
             providers: [
                 {
-                    provide: 'CONFIG_OPTIONS',
+                    provide: CONFIG_OPTIONS,
                     useValue: options
                 },
                 ConfigService
